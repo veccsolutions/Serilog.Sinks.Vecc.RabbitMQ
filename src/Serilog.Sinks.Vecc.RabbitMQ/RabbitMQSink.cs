@@ -8,6 +8,9 @@ using Serilog.Sinks.PeriodicBatching;
 
 namespace Serilog.Sinks.Vecc.RabbitMQ
 {
+    /// <summary>
+    /// A sink for Serilog that will batch event messages and push them up to a RabbitMQ exchange.
+    /// </summary>
     public class RabbitMQSink : PeriodicBatchingSink
     {
 
@@ -24,10 +27,10 @@ namespace Serilog.Sinks.Vecc.RabbitMQ
         /// </summary>
         /// <param name="batchSizeLimit">Maximum locally queued message count before sending to RabbitMQ.</param>
         /// <param name="batchSubmitTimeSeconds">Maximum time to allow locally queued messages to be queued before sending to RabbitMQ.</param>
-        /// <param name="textFormatter">The <seealso cref="ITextFormatter" /> to use when formatting the message. If null, this will default to the built-in Serilog JsonFormatter.</param>
-        /// <param name="formatProvider">The <seealso cref="IFormatProvider"/> to use when formatting the message. If null, this will default to the standard .NET format provider.</param>
-        /// <param name="rabbitConnectionFactory">The <seealso cref="IRabbitConnectionFactory" /> to use when creating the connection to RabbitMQ.</param>
-        /// <param name="rabbitMessageBuilder">The <seealso cref="IRabbitMessageBuilder" /> to use when sending messages to RabbitMQ.</param>
+        /// <param name="textFormatter">The ITextFormatter to use when formatting the message. If null, this will default to the built-in Serilog JsonFormatter.</param>
+        /// <param name="formatProvider">The IFormatProvider to use when formatting the message. If null, this will default to the standard .NET format provider.</param>
+        /// <param name="rabbitConnectionFactory">The <see cref="IRabbitConnectionFactory" /> to use when creating the connection to RabbitMQ.</param>
+        /// <param name="rabbitMessageBuilder">The <see cref="IRabbitMessageBuilder" /> to use when sending messages to RabbitMQ.</param>
         public RabbitMQSink(int batchSizeLimit,
                             TimeSpan batchSubmitTimeSeconds,
                             ITextFormatter textFormatter,
@@ -40,13 +43,19 @@ namespace Serilog.Sinks.Vecc.RabbitMQ
             _textFormatter = textFormatter ?? new JsonFormatter(renderMessage: true);
             
             _connectionFactory = rabbitConnectionFactory.GetConnectionFactory();
+            _rabbitMessageBuilder = rabbitMessageBuilder;
+
             _connection = _connectionFactory.CreateConnection();
             _model = _connection.CreateModel();
-
             _basicProperties = _model.CreateBasicProperties();
+
             rabbitConnectionFactory.ConfigureBasicProperties(_basicProperties);
         }
 
+        /// <summary>
+        /// Send a batch to RabbitMQ.
+        /// </summary>
+        /// <param name="events">The LogEvent batch to send</param>
         protected override void EmitBatch(IEnumerable<LogEvent> events)
         {
             foreach (var logEvent in events)
@@ -65,6 +74,10 @@ namespace Serilog.Sinks.Vecc.RabbitMQ
             }
         }
 
+        /// <summary>
+        /// Disposes and closes the connections to RabbitMQ.
+        /// </summary>
+        /// <param name="disposing"></param>
         protected override void Dispose(bool disposing)
         {
             base.Dispose(disposing);

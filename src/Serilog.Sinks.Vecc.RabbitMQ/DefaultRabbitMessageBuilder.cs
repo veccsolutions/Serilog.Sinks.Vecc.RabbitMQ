@@ -7,7 +7,7 @@ using Serilog.Formatting;
 namespace Serilog.Sinks.Vecc.RabbitMQ
 {
     /// <summary>
-    /// Default implentation of <seealso cref="IRabbitMessageBuilder" /> for the RabbitMQ sink.
+    /// Default implentation of <see cref="IRabbitMessageBuilder" /> for the RabbitMQ sink.
     /// </summary>
     public class DefaultRabbitMessageBuilder : IRabbitMessageBuilder
     {
@@ -38,8 +38,10 @@ namespace Serilog.Sinks.Vecc.RabbitMQ
             _routingKeySuffix = routingKeySuffix;
         }
 
+        /// <inheritdoc />
         public virtual string GetExchange(LogEvent logEvent) => _exchange;
 
+        /// <inheritdoc />
         public virtual byte[] GetMessage(LogEvent logEvent, IFormatProvider formatProvider, ITextFormatter textFormatter)
         {
             using (var sw = new StringWriter(formatProvider))
@@ -53,6 +55,7 @@ namespace Serilog.Sinks.Vecc.RabbitMQ
             }
         }
 
+        /// <inheritdoc />
         public virtual string GetRoutingKey(LogEvent logEvent)
         {
             var result = _routingKey;

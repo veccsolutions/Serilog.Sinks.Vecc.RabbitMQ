@@ -27,8 +27,8 @@ namespace Serilog
         /// <param name="port">Port to connect to the RabbitMQ server. Defaults to 5672.</param>
         /// <param name="batchSizeLimit">Maximum locally queued message count before sending to RabbitMQ. Defaults to 50.</param>
         /// <param name="batchSubmitTimeSeconds">Maximum time to allow locally queued messages to be queued before sending to RabbitMQ. Defaults to 2 seconds.</param>
-        /// <param name="textFormatter">The <seealso cref="ITextFormatter" /> to use when formatting the message. If null, this will default to the built-in Serilog JsonFormatter.</param>
-        /// <param name="formatProvider">The <seealso cref="IFormatProvider"/> to use when formatting the message. If null, this will default to the standard .NET format provider.</param>
+        /// <param name="textFormatter">The ITextFormatter to use when formatting the message. If null, this will default to the built-in Serilog JsonFormatter.</param>
+        /// <param name="formatProvider">The IFormatProvider to use when formatting the message. If null, this will default to the standard .NET format provider.</param>
         /// <returns></returns>
         public static LoggerConfiguration RabbitMQ(this LoggerSinkConfiguration configuration,
                                                    string hostname,
@@ -63,12 +63,12 @@ namespace Serilog
         /// Adds the RabbitMQ sink to serilog
         /// </summary>
         /// <param name="configuration">Serilog Sink Configuration.</param>
-        /// <param name="rabbitConnectionFactory">The <seealso cref="IRabbitConnectionFactory" /> to use when creating the connection to RabbitMQ.</param>
-        /// <param name="rabbitMessageBuilder">The <seealso cref="IRabbitMessageBuilder" /> to use when sending messages to RabbitMQ.</param>
+        /// <param name="rabbitConnectionFactory">The <see cref="IRabbitConnectionFactory" /> to use when creating the connection to RabbitMQ.</param>
+        /// <param name="rabbitMessageBuilder">The <see cref="IRabbitMessageBuilder" /> to use when sending messages to RabbitMQ.</param>
         /// <param name="batchSizeLimit">Maximum locally queued message count before sending to RabbitMQ.</param>
         /// <param name="batchSubmitTimeSeconds">Maximum time to allow locally queued messages to be queued before sending to RabbitMQ.</param>
-        /// <param name="textFormatter">The <seealso cref="ITextFormatter" /> to use when formatting the message. If null, this will default to the built-in Serilog JsonFormatter.</param>
-        /// <param name="formatProvider">The <seealso cref="IFormatProvider"/> to use when formatting the message. If null, this will default to the standard .NET format provider.</param>
+        /// <param name="textFormatter">The ITextFormatter to use when formatting the message. If null, this will default to the built-in Serilog JsonFormatter.</param>
+        /// <param name="formatProvider">The IFormatProvider to use when formatting the message. If null, this will default to the standard .NET format provider.</param>
         /// <returns></returns>
         public static LoggerConfiguration RabbitMQ(this LoggerSinkConfiguration configuration,
                                                    IRabbitConnectionFactory rabbitConnectionFactory,

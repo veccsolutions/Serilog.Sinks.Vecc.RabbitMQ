@@ -5,7 +5,7 @@ using RabbitMQ.Client;
 namespace Serilog.Sinks.Vecc.RabbitMQ
 {
     /// <summary>
-    /// Default implementation of <seealso cref="IRabbitConnectionFactory" /> for the RabbitMQ sink.
+    /// Default implementation of <see cref="IRabbitConnectionFactory" /> for the RabbitMQ sink.
     /// </summary>
     public class DefaultRabbitConnectionFactory : IRabbitConnectionFactory
     {
@@ -21,7 +21,7 @@ namespace Serilog.Sinks.Vecc.RabbitMQ
         /// <summary>
         /// The constructor for the default rabbit connection factory
         /// </summary>
-        /// <param name="application">This is the application name that is set in the property header. If <paramref name="routingKey"/> is null, it will be included in the routing key sent to RabbitMQ.</param>
+        /// <param name="application">This is the application name that is set in the property header.</param>
         /// <param name="hostname">The hostname of the RabbitMQ server</param>
         /// <param name="username">Username to use to connect to the RabbitMQ server</param>
         /// <param name="password">Password to use to connect to the RabbitMQ server</param>
@@ -46,6 +46,7 @@ namespace Serilog.Sinks.Vecc.RabbitMQ
             _virtualHost = virtualHost;
         }
 
+        /// <inheritdoc />
         public virtual void ConfigureBasicProperties(IBasicProperties basicProperties)
         {
             basicProperties.ContentType = "application/json";
@@ -57,6 +58,7 @@ namespace Serilog.Sinks.Vecc.RabbitMQ
             basicProperties.AppId = _application;
         }
 
+        /// <inheritdoc />
         public IConnectionFactory GetConnectionFactory()
         {
             var connectionFactory = new ConnectionFactory
