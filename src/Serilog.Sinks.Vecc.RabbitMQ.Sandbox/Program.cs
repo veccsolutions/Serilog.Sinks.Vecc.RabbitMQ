@@ -8,7 +8,7 @@ namespace Serilog.Sinks.Vecc.RabbitMQ.Sandbox
         {
             var logConfiguration = new LoggerConfiguration()
                 .WriteTo.Console()
-                .WriteTo.RabbitMQ("localhost", "guest", "guest", "logs", "logevents")
+                .WriteTo.RabbitMQ("localhost", "guest", "guest", "logs", "logevents", typeof(Program).Namespace)
                 .MinimumLevel.Verbose();
 
             Log.Logger = logConfiguration.CreateLogger();
