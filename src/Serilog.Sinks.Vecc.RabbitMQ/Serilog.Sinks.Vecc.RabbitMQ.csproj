@@ -2,6 +2,14 @@
   <PropertyGroup>
     <LogFile>../../apidocs/log.txt</LogFile>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <Authors>Vecc Solutions</Authors>
+    <Company>Vecc Solutions</Company>
+    <PackageLicenseUrl></PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/veccsolutions/Serilog.Sinks.Vecc.RabbitMQ</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/veccsolutions/Serilog.Sinks.Vecc.RabbitMQ</RepositoryUrl>
+    <PackageTags>Serilog, RabbitMQ</PackageTags>
+    <Description>Customizable sink for Serilog that will post detailed messages and their properties to a RabbitMQ exchange.</Description>
+    <Configurations>Debug;Release;Documentation</Configurations>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -12,8 +20,15 @@
     <DocumentationFile>bin\Release\netcoreapp2.0\Serilog.Sinks.Vecc.RabbitMQ.xml</DocumentationFile>
   </PropertyGroup>
 
-  <ItemGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Documentation|AnyCPU'">
+    <DocumentationFile>bin\Release\netcoreapp2.0\Serilog.Sinks.Vecc.RabbitMQ.xml</DocumentationFile>
+  </PropertyGroup>
+  
+  <ItemGroup Condition="'$(Configuration)|$(Platform)'=='Documentation|AnyCPU'">
     <PackageReference Include="docfx.console" Version="2.36.1" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
     <PackageReference Include="RabbitMQ.Client" Version="5.0.1" />
     <PackageReference Include="Serilog" Version="2.0.0" />
